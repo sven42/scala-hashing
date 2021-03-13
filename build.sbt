@@ -1,5 +1,5 @@
-lazy val scala213               = "2.13.0"
-lazy val scala212               = "2.12.9"
+lazy val scala213               = "2.13.5"
+lazy val scala212               = "2.12.13"
 lazy val scala211               = "2.11.12"
 
 ThisBuild / organization := "com.desmondyeung.hashing"
@@ -32,8 +32,8 @@ lazy val hashing = (project in file("."))
     ),
     libraryDependencies ++= {
       Seq(
-        "org.scalatest" %% "scalatest" % "3.0.8" % Test,
-        "org.lz4"       % "lz4-java"   % "1.6.0" % Test
+        "org.scalatest" %% "scalatest" % "3.0.9" % Test,
+        "org.lz4"       % "lz4-java"   % "1.7.1" % Test
       )
     }
   )
@@ -43,7 +43,7 @@ lazy val bench = (project in file("bench"))
     libraryDependencies ++= {
       Seq(
         "com.google.guava" % "guava"                   % "28.0-jre",
-        "org.lz4"          % "lz4-java"                % "1.6.0",
+        "org.lz4"          % "lz4-java"                % "1.7.1",
         "net.openhft"      % "zero-allocation-hashing" % "0.9"
       )
     }
@@ -65,7 +65,7 @@ pomIncludeRepository := { _ => false }
 
 publishArtifact in Test := false
 
-pomExtra in ThisBuild := (<url>https://github.com/desmondyeung/scala-hashing</url>
+pomExtra in ThisBuild := <url>https://github.com/desmondyeung/scala-hashing</url>
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -83,4 +83,4 @@ pomExtra in ThisBuild := (<url>https://github.com/desmondyeung/scala-hashing</ur
       <name>Desmond Yeung</name>
       <url>https://github.com/desmondyeung</url>
     </developer>
-  </developers>)
+  </developers>
