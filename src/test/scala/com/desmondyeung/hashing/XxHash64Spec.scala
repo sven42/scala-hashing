@@ -16,9 +16,9 @@
 
 package com.desmondyeung.hashing
 
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class XxHash64Spec extends FunSpec with Hash64Behaviors {
+class XxHash64Spec extends AnyFunSpec with Hash64Behaviors {
 
   def referenceImpl(input: Array[Byte], seed: Long): Long =
     net.jpountz.xxhash.XXHashFactory.fastestInstance.hash64.hash(input, 0, input.length, seed)

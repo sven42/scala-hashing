@@ -16,13 +16,13 @@
 
 package com.desmondyeung.hashing
 
+import org.scalatest.funspec.AnyFunSpecLike
+
 import scala.util.Random
-import java.nio.{ByteBuffer, ByteOrder}
-import org.scalatest.FunSpec
 
-trait Hash64Behaviors extends HashSpecUtils { this: FunSpec =>
+trait Hash64Behaviors extends HashSpecUtils with AnyFunSpecLike {
 
-  val seed = Random.nextLong
+  val seed = Random.nextLong()
 
   def hash64(underTest: Hash64, referenceImpl: (Array[Byte], Long) => Long) = {
     describe("when hashing primitives") {

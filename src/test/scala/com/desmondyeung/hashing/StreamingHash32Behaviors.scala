@@ -16,13 +16,13 @@
 
 package com.desmondyeung.hashing
 
+import org.scalatest.funspec.AnyFunSpecLike
+
 import scala.util.Random
-import java.nio.{ByteBuffer, ByteOrder}
-import org.scalatest.FunSpec
 
-trait StreamingHash32Behaviors extends HashSpecUtils { this: FunSpec =>
+trait StreamingHash32Behaviors extends HashSpecUtils with AnyFunSpecLike {
 
-  val seed = Random.nextInt
+  val seed = Random.nextInt()
 
   def streamingHash32(underTest: (Int) => StreamingHash32, referenceImpl: (Array[Byte], Int) => Int) = {
     describe("when hashing a byte array") {

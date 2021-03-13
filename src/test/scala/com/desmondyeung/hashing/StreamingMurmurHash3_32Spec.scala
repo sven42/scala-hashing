@@ -16,9 +16,9 @@
 
 package com.desmondyeung.hashing
 
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class StreamingMurmurHash3_32Spec extends FunSpec with StreamingHash32Behaviors {
+class StreamingMurmurHash3_32Spec extends AnyFunSpec with StreamingHash32Behaviors {
 
   def referenceImpl(input: Array[Byte], seed: Int): Int =
     scala.util.hashing.MurmurHash3.bytesHash(input, seed)

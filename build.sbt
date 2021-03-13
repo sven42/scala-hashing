@@ -32,7 +32,7 @@ lazy val hashing = (project in file("."))
     ),
     libraryDependencies ++= {
       Seq(
-        "org.scalatest" %% "scalatest" % "3.0.9" % Test,
+        "org.scalatest" %% "scalatest" % "3.2.6" % Test,
         "org.lz4"       % "lz4-java"   % "1.7.1" % Test
       )
     }

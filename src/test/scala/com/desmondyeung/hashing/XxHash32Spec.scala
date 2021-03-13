@@ -16,9 +16,9 @@
 
 package com.desmondyeung.hashing
 
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class XxHash32Spec extends FunSpec with Hash32Behaviors {
+class XxHash32Spec extends AnyFunSpec with Hash32Behaviors {
 
   def referenceImpl(input: Array[Byte], seed: Int): Int =
     net.jpountz.xxhash.XXHashFactory.fastestInstance.hash32.hash(input, 0, input.length, seed)
