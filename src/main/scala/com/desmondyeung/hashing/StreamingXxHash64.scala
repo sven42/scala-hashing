@@ -26,7 +26,7 @@ object StreamingXxHash64 {
   def apply(seed: Long) = new StreamingXxHash64(seed)
 }
 
-final class StreamingXxHash64(seed: Long) extends StreamingHash64 {
+final class StreamingXxHash64(seed: Long) extends StreamingHash[Long] {
 
   private[this] final val buffer      = new Array[Byte](32)
   private[this] final var v1          = seed + XxHash64.Prime1 + XxHash64.Prime2

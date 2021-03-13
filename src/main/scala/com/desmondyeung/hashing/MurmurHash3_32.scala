@@ -22,7 +22,7 @@ import java.lang.Integer.{rotateLeft => rotl32}
  * Scala implementation of Austin Appleby's MurmurHash3.
  * See https://github.com/aappleby/smhasher
  */
-object MurmurHash3_32 extends Hash32 {
+object MurmurHash3_32 extends Hash[Int] {
   val C1 = 0xcc9e2d51
   val C2 = 0x1b873593
 

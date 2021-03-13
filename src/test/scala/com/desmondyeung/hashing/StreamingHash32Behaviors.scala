@@ -22,9 +22,9 @@ import scala.util.Random
 
 trait StreamingHash32Behaviors extends HashSpecUtils with AnyFunSpecLike {
 
-  val seed = Random.nextInt()
+  val seed: Int = Random.nextInt()
 
-  def streamingHash32(underTest: (Int) => StreamingHash32, referenceImpl: (Array[Byte], Int) => Int) = {
+  def streamingHash32(underTest: Int => StreamingHash[Int], referenceImpl: (Array[Byte], Int) => Int): Unit = {
     describe("when hashing a byte array") {
       it("should correctly hash a empty byte array") {
         val checksum = underTest(seed)

@@ -22,12 +22,12 @@ import java.lang.Integer.{rotateLeft => rotl32}
  * Scala implementation of Yann Collet's XxHash32 algoritm.
  * See https://github.com/Cyan4973/xxHash
  */
-object XxHash32 extends Hash32 {
-  val Prime1 = -1640531535
-  val Prime2 = -2048144777
-  val Prime3 = -1028477379
-  val Prime4 = 668265263
-  val Prime5 = 374761393
+object XxHash32 extends Hash[Int] {
+  val Prime1: Int = -1640531535
+  val Prime2: Int = -2048144777
+  val Prime3: Int = -1028477379
+  val Prime4: Int = 668265263
+  val Prime5: Int = 374761393
 
   final def hashByte(input: Byte, seed: Int): Int =
     avalanche(processByte(seed + Prime5 + 1, input & 0xFF))

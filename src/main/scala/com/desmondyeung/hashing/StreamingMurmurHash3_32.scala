@@ -26,7 +26,7 @@ object StreamingMurmurHash3_32 {
   def apply(seed: Int) = new StreamingMurmurHash3_32(seed)
 }
 
-class StreamingMurmurHash3_32(seed: Int) extends StreamingHash32 {
+class StreamingMurmurHash3_32(seed: Int) extends StreamingHash[Int] {
 
   private[this] final val buffer      = new Array[Byte](4)
   private[this] final var hash        = seed

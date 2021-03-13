@@ -22,9 +22,9 @@ import scala.util.Random
 
 trait Hash64Behaviors extends HashSpecUtils with AnyFunSpecLike {
 
-  val seed = Random.nextLong()
+  val seed: Long = Random.nextLong()
 
-  def hash64(underTest: Hash64, referenceImpl: (Array[Byte], Long) => Long) = {
+  def hash64(underTest: Hash[Long], referenceImpl: (Array[Byte], Long) => Long): Unit = {
     describe("when hashing primitives") {
       it("should correctly hash a Byte") {
         val input = byteBufferOfSize(1)

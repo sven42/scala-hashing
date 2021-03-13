@@ -22,9 +22,9 @@ import scala.util.Random
 
 trait Hash32Behaviors extends HashSpecUtils with AnyFunSpecLike {
 
-  val seed = Random.nextInt()
+  val seed: Int = Random.nextInt()
 
-  def hash32(underTest: Hash32, referenceImpl: (Array[Byte], Int) => Int) = {
+  def hash32(underTest: Hash[Int], referenceImpl: (Array[Byte], Int) => Int): Unit = {
     describe("when hashing primitives") {
       it("should correctly hash a Byte") {
         val input = byteBufferOfSize(1)

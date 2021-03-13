@@ -22,9 +22,9 @@ import scala.util.Random
 
 trait StreamingHash64Behaviors extends HashSpecUtils with AnyFunSpecLike {
 
-  val seed = Random.nextLong()
+  val seed: Long = Random.nextLong()
 
-  def streamingHash64(underTest: (Long) => StreamingHash64, referenceImpl: (Array[Byte], Long) => Long) = {
+  def streamingHash64(underTest: Long => StreamingHash[Long], referenceImpl: (Array[Byte], Long) => Long): Unit = {
     describe("when hashing a byte array") {
       it("should correctly hash a empty byte array") {
         val checksum = underTest(seed)

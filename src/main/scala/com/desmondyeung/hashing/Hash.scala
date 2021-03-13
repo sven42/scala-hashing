@@ -20,33 +20,33 @@ import java.nio.ByteBuffer
 import sun.nio.ch.DirectBuffer
 
 object HashUtil {
-  final def checkBounds(inputLength: Int, offset: Int, length: Int) =
+  final def checkBounds(inputLength: Int, offset: Int, length: Int): Unit =
     if (offset < 0 || length < 0 || inputLength - offset < length) {
       throw new IndexOutOfBoundsException()
     }
 }
 
-trait Hash32 {
-  def hashByte(input: Byte, seed: Int): Int
-  def hashInt(input: Int, seed: Int): Int
-  def hashLong(input: Long, seed: Int): Int
+trait Hash[T] {
+  def hashByte(input: Byte, seed: T): T
+  def hashInt(input: Int, seed: T): T
+  def hashLong(input: Long, seed: T): T
 
-  final def hashByteArray(input: Array[Byte], seed: Int): Int =
+  final def hashByteArray(input: Array[Byte], seed: T): T =
     hashBytes(input, UnsafeUtil.ByteArrayBase, input.length, seed)
 
-  final def hashByteArray(input: Array[Byte], offset: Int, length: Int, seed: Int): Int = {
+  final def hashByteArray(input: Array[Byte], offset: Int, length: Int, seed: T): T = {
     HashUtil.checkBounds(input.length, offset, length)
     hashBytes(input, UnsafeUtil.ByteArrayBase + offset, length, seed)
   }
 
-  final def hashByteBuffer(input: ByteBuffer, seed: Int): Int =
+  final def hashByteBuffer(input: ByteBuffer, seed: T): T =
     if (input.hasArray) {
       hashBytes(input.array, UnsafeUtil.ByteArrayBase + input.arrayOffset, input.capacity, seed)
     } else {
       hashBytes(null, input.asInstanceOf[DirectBuffer].address, input.capacity, seed)
     }
 
-  final def hashByteBuffer(input: ByteBuffer, offset: Int, length: Int, seed: Int): Int = {
+  final def hashByteBuffer(input: ByteBuffer, offset: Int, length: Int, seed: T): T = {
     HashUtil.checkBounds(input.capacity, offset, length)
     if (input.hasArray) {
       hashBytes(input.array, UnsafeUtil.ByteArrayBase + input.arrayOffset + offset, length, seed)
@@ -55,65 +55,12 @@ trait Hash32 {
     }
   }
 
-  private[hashing] def hashBytes(input: Array[Byte], offset: Long, length: Int, seed: Int): Int
+  private[hashing] def hashBytes(input: Array[Byte], offset: Long, length: Int, seed: T): T
 }
 
-trait Hash64 {
-  def hashByte(input: Byte, seed: Long): Long
-  def hashInt(input: Int, seed: Long): Long
-  def hashLong(input: Long, seed: Long): Long
-
-  final def hashByteArray(input: Array[Byte], seed: Long): Long =
-    hashBytes(input, UnsafeUtil.ByteArrayBase, input.length, seed)
-
-  final def hashByteArray(input: Array[Byte], offset: Int, length: Int, seed: Long): Long = {
-    HashUtil.checkBounds(input.length, offset, length)
-    hashBytes(input, UnsafeUtil.ByteArrayBase + offset, length, seed)
-  }
-
-  final def hashByteBuffer(input: ByteBuffer, seed: Long): Long =
-    if (input.hasArray) {
-      hashBytes(input.array, UnsafeUtil.ByteArrayBase + input.arrayOffset, input.capacity, seed)
-    } else {
-      hashBytes(null, input.asInstanceOf[DirectBuffer].address, input.capacity, seed)
-    }
-
-  final def hashByteBuffer(input: ByteBuffer, offset: Int, length: Int, seed: Long): Long = {
-    HashUtil.checkBounds(input.capacity, offset, length)
-    if (input.hasArray) {
-      hashBytes(input.array, UnsafeUtil.ByteArrayBase + input.arrayOffset + offset, length, seed)
-    } else {
-      hashBytes(null, input.asInstanceOf[DirectBuffer].address + offset, length, seed)
-    }
-  }
-
-  private[hashing] def hashBytes(input: Array[Byte], offset: Long, length: Int, seed: Long): Long
-}
-
-trait StreamingHash32 {
+trait StreamingHash[T] {
   def reset(): Unit
-  def value: Int
-
-  final def updateByteArray(input: Array[Byte], offset: Int, length: Int): Unit = {
-    HashUtil.checkBounds(input.length, offset, length)
-    update(input, UnsafeUtil.ByteArrayBase + offset, length)
-  }
-
-  final def updateByteBuffer(input: ByteBuffer, offset: Int, length: Int): Unit = {
-    HashUtil.checkBounds(input.capacity, offset, length)
-    if (input.hasArray) {
-      update(input.array, UnsafeUtil.ByteArrayBase + input.arrayOffset + offset, length)
-    } else {
-      update(null, input.asInstanceOf[DirectBuffer].address + offset, length)
-    }
-  }
-
-  private[hashing] def update(input: Array[Byte], offset: Long, length: Int): Unit
-}
-
-trait StreamingHash64 {
-  def reset(): Unit
-  def value: Long
+  def value: T
 
   final def updateByteArray(input: Array[Byte], offset: Int, length: Int): Unit = {
     HashUtil.checkBounds(input.length, offset, length)

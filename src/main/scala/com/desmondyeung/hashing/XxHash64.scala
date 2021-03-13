@@ -22,12 +22,12 @@ import java.lang.Long.{rotateLeft => rotl64}
  * Scala implementation of Yann Collet's XxHash64 algorithm.
  * See https://github.com/Cyan4973/xxHash
  */
-object XxHash64 extends Hash64 {
-  val Prime1 = -7046029288634856825L
-  val Prime2 = -4417276706812531889L
-  val Prime3 = 1609587929392839161L
-  val Prime4 = -8796714831421723037L
-  val Prime5 = 2870177450012600261L
+object XxHash64 extends Hash[Long] {
+  val Prime1: Long = -7046029288634856825L
+  val Prime2: Long = -4417276706812531889L
+  val Prime3: Long = 1609587929392839161L
+  val Prime4: Long = -8796714831421723037L
+  val Prime5: Long = 2870177450012600261L
 
   final def hashByte(input: Byte, seed: Long): Long =
     avalanche(processByte(seed + Prime5 + 1L, input & 0xFF))
